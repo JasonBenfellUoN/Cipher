@@ -1,4 +1,19 @@
 #include <stdio.h>
+
+
 int main (){
-  return 0;
+    int c;
+    FILE * printTest;
+    printTest = fopen("text.txt", "r");
+    while(1) {
+        c = fgetc(printTest);
+        if(feof(printTest)) { 
+            break;
+        }
+        printf("%c", c);
+    }
+
+    fclose(printTest);
+    printf("\nProgram terminated.");
+    return 0;
 }
