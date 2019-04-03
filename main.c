@@ -12,6 +12,9 @@ int main (){
         if(feof(printTest)) { 
             break;
         }
+        if(c > 90){
+            c = c-32; //Takes any character that is a lowercase letter and changes it into a capital letter
+        }
         printf("%c", c);
     }
 
