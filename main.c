@@ -3,8 +3,9 @@
 
 int main (){
     FILE * printTest;
+    FILE * encodeMeRotation;
     printTest = fopen("text.txt", "r");
-    textToEncode = fopen("encodeMeRotation", r);
+    encodeMeRotation = fopen("encodeMeRotation", "r");
     int choice = 0;
     char c;
     char cha = 64;
@@ -14,22 +15,43 @@ int main (){
     printf("Currently, only rotation ciphers are implemented.\n"); // and what it is capable of.
     scanf("%d", &choice);
     switch(choice){
-        case: '1':
+        case 1:
+            printf("Please provide an input from -25 to 25\nIncluding 0 will cause no encryption.\n");
             int key;
-            printf("Please provide an input from -25 to 25\nIncluding 0 will cause no encryption.");
             scanf("%d", &key);
+            printf("Your key is: %d\n", key);
             if(25 < key || -25 > key){
                 printf("Invalid input.");
                 break;
             }
-            int keycounter = key;
             while(1){
-                c = fgetc(printTest);
+                int keycounter = 0;
+                c = fgetc(encodeMeRotation);
+                if(key == keycounter){
+                    break;
+                }
+                if(feof(encodeMeRotation)) { 
+                    break;
+                }
                 if(c > 90){
                     c = c-32;
                 }
-                c = c+key;
-                if(c < 65)
+                while(keycounter != key && key > 0){
+                    c++;
+                    keycounter++;
+                }
+                while(keycounter != key && key < 0){
+                    c--;
+                    keycounter--;
+                }
+                if(c == 32){
+                    c = 32;
+                } else if(c < 65 && c != 32){
+                    c = 90;
+                } else if (c > 90 && c != 32){
+                    c = 65;
+                }
+                printf("%c", c);
                 
                 
             }
@@ -49,6 +71,6 @@ int main (){
     printf("\n%d \n", a);
     printf("%c", cha);
 
-    printf("\nProgram terminated.");
+    printf("\nProgram terminated.\n");
     return 0;
 }
