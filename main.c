@@ -7,10 +7,11 @@ int main (){
     printTest = fopen("text.txt", "r");
     encodeMeRotation = fopen("encodeMeRotation", "r");
     int choice = 0;
+    int n;
     char c;
     char cha = 64;
     int a = cha;
-    printf("Welcome to the Cipher Program, version: 0.2\n"); // These three lines print introductions to the programs, and its specifications
+    printf("Welcome to the Cipher Program, version: 0.3\n"); // These three lines print introductions to the programs, and its specifications
     printf("Please provide an input: \n1 for encryption, 2 for decryption.\n"); // and they provide user-friendly instructions
     printf("Currently, only rotation ciphers are implemented.\n"); // and what it is capable of.
     scanf("%d", &choice);
@@ -21,7 +22,7 @@ int main (){
             scanf("%d", &key);
             printf("Your key is: %d\n", key);
             if(25 < key || -25 > key){
-                printf("Invalid input.");
+                printf("Invalid input.\n");
                 break;
             }
             while(1){
@@ -33,25 +34,38 @@ int main (){
                 if(feof(encodeMeRotation)) { 
                     break;
                 }
-                if(c > 90){
-                    c = c-32;
-                }
+           //     if(c > 90){
+             //       c = c-32;
+               // }
                 while(keycounter != key && key > 0){
-                    c++;
-                    keycounter++;
+                    if(c == 32){
+                        c = 32;
+                        printf("%c", c);
+                    } else if(c > 65 && c < 91 && c != 32){
+                        c++;
+                        keycounter++;
+                        if(c < 65 && c != 32){
+                            c = 90;
+                            printf("%c", c);
+                        } else if (c > 90 && c != 32){
+                            c = 65;
+                            printf("%c", c);
+                    }
                 }
-                while(keycounter != key && key < 0){
-                    c--;
-                    keycounter--;
-                }
-                if(c == 32){
-                    c = 32;
-                } else if(c < 65 && c != 32){
-                    c = 90;
-                } else if (c > 90 && c != 32){
-                    c = 65;
-                }
-                printf("%c", c);
+            }
+
+     /*           while(keycounter != key && key < 0){
+                    if(c == 32){
+                        c = 32;
+                    } else if(c > 65 && c < 91 && c != 32){
+                        c--;
+                        keycounter--;
+                    } else if(c < 65 && c != 32){
+                        c = 90;
+                    } else if (c > 90 && c != 32){
+                        c = 65;
+                    }
+                } */
                 
                 
             }
