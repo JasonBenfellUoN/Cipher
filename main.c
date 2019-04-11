@@ -7,14 +7,16 @@ int main (){
     printTest = fopen("text.txt", "r");
     encodeMeRotation = fopen("encodeMeRotation", "r");
     int choice = 0;
+    int keycounter = 0;
     int n;
     char c;
     char cha = 64;
     int a = cha;
-    printf("Welcome to the Cipher Program, version: 0.3\n"); // These three lines print introductions to the programs, and its specifications
+    printf("Welcome to the Cipher Program, version: 1.0\n"); // These three lines print introductions to the programs, and its specifications
     printf("Please provide an input: \n1 for encryption, 2 for decryption.\n"); // and they provide user-friendly instructions
     printf("Currently, only rotation ciphers are implemented.\n"); // and what it is capable of.
     scanf("%d", &choice);
+    int i = 0;
     switch(choice){
         case 1:
             printf("Please provide an input from -25 to 25\nIncluding 0 will cause no encryption.\n");
@@ -25,19 +27,35 @@ int main (){
                 printf("Invalid input.\n");
                 break;
             }
-            while(1){
-                int keycounter = 0;
+            while(!feof(encodeMeRotation)){
                 c = fgetc(encodeMeRotation);
-                if(key == keycounter){
-                    break;
+                
+                if(c > 90){ //Detects lowercase letters (all ASCII lowercase letters are greater than 90)
+                    c = c-32; //Takes any character that is a lowercase letter and changes it into a capital letter (the difference between an ASCII lower and upper case is exactly 32)
                 }
-                if(feof(encodeMeRotation)) { 
-                    break;
+                if ((c < 65) || (c> 90)) {
+                    printf("%d %c %c\n", i, c, c);
+                } else {
+                
+                i++;
+                printf("%d %c", i, c);
+                c += key;
+                if(c < 65){
+                    c = 155 - c;
+                } else if(c > 90){
+                    c = c - 26;
                 }
+                printf(" %c\n", c);
+                
+            }
+
+              /*()  if(feof(encodeMeRotation)) { 
+                    break;
+                }*/
            //     if(c > 90){
              //       c = c-32;
                // }
-                while(keycounter != key && key > 0){
+              /*  while(keycounter != key && key > 0){
                     if(c == 32){
                         c = 32;
                         printf("%c", c);
@@ -50,8 +68,11 @@ int main (){
                         } else if (c > 90 && c != 32){
                             c = 65;
                             printf("%c", c);
+                    } else{
+                        printf("%c", c);
                     }
-                }
+                    
+                }*/
             }
 
      /*           while(keycounter != key && key < 0){
@@ -69,7 +90,7 @@ int main (){
                 
                 
             }
-    }
+    
     while(1) {
         c = fgetc(printTest);
         if(feof(printTest)) { 
