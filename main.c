@@ -1,17 +1,21 @@
 #include <stdio.h>
-char rotation(char c, int key);
+char rotation(char c, int key); 
 
 int main (){
     FILE * printTest;
     FILE * encodeMeRotation; //Points to a file under the name "encodeMeRotation"
+    FILE * decodeMeRotation;
     printTest = fopen("text.txt", "r"); 
     encodeMeRotation = fopen("encodeMeRotation", "r"); //Opens the file "encodeMeRotation" for "reading" (r)
+    decodeMeRotation = fopen("decodeMeRotation", "r");
     int choice = 0; //Initialises variables, an integer for user choice.
     int n;
     char c;
     char cha = 64;
     int a = cha;
-    printf("Welcome to the Cipher Program, version: 1.2\n"); // These three lines print introductions to the programs, and its specifications
+    int lettNum[26];
+    int counter = 0;
+    printf("Welcome to the Cipher Program, version: 1.3\n"); // These three lines print introductions to the programs, and its specifications
     printf("Please provide an input: \n1 for encryption, 2 for decryption.\n"); // and they provide user-friendly instructions
     printf("Currently, only rotation ciphers are implemented.\n"); // and what it is capable of.
     scanf("%d", &choice);
@@ -46,7 +50,7 @@ int main (){
                 printf(" %c\n", c);     
             }
             }
-        } else if(choice == 2){
+    }else if(choice == 2){
 
             printf("Please provide a key as a number\nIncluding 0 will cause no encryption.\n");
             int key;
@@ -77,7 +81,96 @@ int main (){
                 printf(" %c\n", c);     
             }
         }
-    } else{
+    }else if(choice == 3){
+            while(!feof(decodeMeRotation)){
+                c = fgetc(decodeMeRotation);
+                switch(c){
+                    case 65: 
+                        lettNum[0] += 1;
+                        break;
+                    case 66:
+                        lettNum[1] += 1;
+                        break;
+                    case 67:
+                        lettNum[2] += 1;
+                        break;
+                    case 68:
+                        lettNum[3] += 1;
+                        break;
+                    case 69:
+                        lettNum[4] += 1;
+                        break;
+                    case 70:
+                        lettNum[5] += 1;
+                        break;
+                    case 71:
+                        lettNum[6] += 1;
+                        break;
+                    case 72:
+                        lettNum[7] += 1;
+                        break;
+                    case 73:
+                        lettNum[8] += 1;
+                        break;
+                    case 74:
+                        lettNum[9] += 1;
+                        break;
+                    case 75:
+                        lettNum[10] += 1;
+                        break;
+                    case 76:
+                        lettNum[11] += 1;
+                        break;
+                    case 77:
+                        lettNum[12] += 1;
+                        break;
+                    case 78:
+                        lettNum[13] += 1;
+                        break;
+                    case 79:
+                        lettNum[14] += 1;
+                        break;
+                    case 80:
+                        lettNum[15] += 1;
+                        break;
+                    case 81:
+                        lettNum[16] += 1;
+                        break;
+                    case 82:
+                        lettNum[17] += 1;
+                        break;
+                    case 83:
+                        lettNum[18] += 1;
+                        break;
+                    case 84:
+                        lettNum[19] += 1;
+                        break;
+                    case 85:
+                        lettNum[20] += 1;
+                        break;
+                    case 86:
+                        lettNum[21] += 1;
+                        break;
+                    case 87:
+                        lettNum[22] += 1;
+                        break;
+                    case 88:
+                        lettNum[23] += 1;
+                        break;
+                    case 89:
+                        lettNum[24] += 1;
+                        break;
+                    case 90:
+                        lettNum[25] += 1;
+                        break;
+                    default:
+                        break;
+                printf("%d", lettNum[counter]);
+                counter++;
+                }
+                
+                
+            }
             printf("I hate my life.");
         }
 
