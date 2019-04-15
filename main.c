@@ -13,21 +13,24 @@ int main (){
     char c;
     char cha = 64;
     int a = cha;
-    int lettNum[26];
+    int lettNum[26] = {0};
+    int stdAlphabet[26] = {65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90}; //Initialises an array that contains the ASCII codes for each letter of the alphabet.
     int counter = 0;
     printf("Welcome to the Cipher Program, version: 1.3\n"); // These three lines print introductions to the programs, and its specifications
     printf("Please provide an input: \n1 for encryption, 2 for decryption.\n"); // and they provide user-friendly instructions
     printf("Currently, only rotation ciphers are implemented.\n"); // and what it is capable of.
     scanf("%d", &choice);
     int i = 0;
-    if(choice == 1){
+    if(choice == 1){ //Simple UI choice for selection of function.
             printf("Please provide an input from -25 to 25\nIncluding 0 will cause no encryption.\n");
             int key;
-            scanf("%d", &key);
-            printf("Your key is: %d\n", key);
-            if(25 < key || -25 > key){
+            scanf("%d", &key); //Takes the input of the user and makes it the key for the rotation cipher.
+            if(25 < key || -25 > key){ //Checks if the key is outside of the acceptable range, if not, rejects the input.
                 printf("Invalid input.\n");
+                return;
             }
+            printf("Your key is: %d\n", key);
+
             
             while(!feof(encodeMeRotation)){
                 c = fgetc(encodeMeRotation);
@@ -36,11 +39,11 @@ int main (){
                     c = c-32; //Takes any character that is a lowercase letter and changes it into a capital letter (the difference between an ASCII lower and upper case is exactly 32)
                 }
                 if ((c < 65) || (c> 90)) {
-                    printf("%d %c %c\n", i, c, c);
+                    printf("%d %c %c\n", i, c, c); //Checks characters are within the upper-case ASCII range, and if so, prints them.
                 } else {
                 
                 i++;
-                printf("%d %c", i, c);
+                printf("%d %c", i, c); 
                 c += key;
                 if(c < 65){
                     c = 155 - c;
@@ -84,88 +87,142 @@ int main (){
     }else if(choice == 3){
             while(!feof(decodeMeRotation)){
                 c = fgetc(decodeMeRotation);
+                if(c > 90){
+                    c = c-32;
+                }
                 switch(c){
                     case 65: 
                         lettNum[0] += 1;
+                        counter++;
+                        printf("%d", lettNum[0]);
                         break;
                     case 66:
                         lettNum[1] += 1;
+                        counter++;
+                        printf("%d", lettNum[1]);
                         break;
                     case 67:
                         lettNum[2] += 1;
+                        counter++;
+                        printf("%d", lettNum[2]);
                         break;
                     case 68:
                         lettNum[3] += 1;
+                        counter++;
+                        printf("%d", lettNum[3]);
                         break;
                     case 69:
                         lettNum[4] += 1;
+                        counter++;
+                        printf("%d", lettNum[4]);
                         break;
                     case 70:
                         lettNum[5] += 1;
+                        counter++;
+                        printf("%d", lettNum[5]);
                         break;
                     case 71:
                         lettNum[6] += 1;
+                        counter++;
+                        printf("%d", lettNum[6]);
                         break;
                     case 72:
                         lettNum[7] += 1;
+                        counter++;
+                        printf("%d", lettNum[7]);
                         break;
                     case 73:
                         lettNum[8] += 1;
+                        counter++;
+                        printf("%d", lettNum[8]);
                         break;
                     case 74:
                         lettNum[9] += 1;
+                        counter++;
+                        printf("%d", lettNum[9]);
                         break;
                     case 75:
                         lettNum[10] += 1;
+                        counter++;
+                        printf("%d", lettNum[10]);
                         break;
                     case 76:
                         lettNum[11] += 1;
+                        counter++;
+                        printf("%d", lettNum[11]);
                         break;
                     case 77:
                         lettNum[12] += 1;
+                        counter++;
+                        printf("%d", lettNum[12]);
                         break;
                     case 78:
                         lettNum[13] += 1;
+                        counter++;
+                        printf("%d", lettNum[13]);
                         break;
                     case 79:
                         lettNum[14] += 1;
+                        counter++;
+                        printf("%d", lettNum[14]);
                         break;
                     case 80:
                         lettNum[15] += 1;
+                        counter++;
+                        printf("%d", lettNum[15]);
                         break;
                     case 81:
                         lettNum[16] += 1;
+                        counter++;
+                        printf("%d", lettNum[16]);
                         break;
                     case 82:
                         lettNum[17] += 1;
+                        counter++;
+                        printf("%d", lettNum[17]);
                         break;
                     case 83:
                         lettNum[18] += 1;
+                        counter++;
+                        printf("%d", lettNum[18]);
                         break;
                     case 84:
                         lettNum[19] += 1;
+                        counter++;
+                        printf("%d", lettNum[19]);
                         break;
                     case 85:
                         lettNum[20] += 1;
+                        counter++;
+                        printf("%d", lettNum[20]);
                         break;
                     case 86:
                         lettNum[21] += 1;
+                        counter++;
+                        printf("%d", lettNum[21]);
                         break;
                     case 87:
                         lettNum[22] += 1;
+                        counter++;
+                        printf("%d", lettNum[22]);
                         break;
                     case 88:
                         lettNum[23] += 1;
+                        counter++;
+                        printf("%d", lettNum[23]);
                         break;
                     case 89:
                         lettNum[24] += 1;
+                        counter++;
+                        printf("%d", lettNum[24]);
                         break;
                     case 90:
                         lettNum[25] += 1;
+                        counter++;
+                        printf("%d", lettNum[25]);
                         break;
                     default:
                         break;
-                printf("%d", lettNum[counter]);
                 counter++;
                 }
                 
