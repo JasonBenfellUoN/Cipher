@@ -9,11 +9,13 @@ int main (){
     encodeMeRotation = fopen("encodeMeRotation", "r"); //Opens the file "encodeMeRotation" for "reading" (r)
     decodeMeRotation = fopen("decodeMeRotation", "r");
     int choice = 0; //Initialises variables, an integer for user choice.
+    int testCounter = 0;
     int n;
     char c;
     char cha = 64;
     int a = cha;
     int lettNum[26] = {0};
+    int alphhFreq[10] = {69, 84, 65, 79, 73, 78, 83, 82, 72, 68};
     int stdAlphabet[26] = {65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90}; //Initialises an array that contains the ASCII codes for each letter of the alphabet.
     int counter = 0;
     printf("Welcome to the Cipher Program, version: 1.3\n"); // These three lines print introductions to the programs, and its specifications
@@ -222,14 +224,25 @@ int main (){
                         printf("%d", lettNum[25]);
                         break;
                     default:
+                        counter++;
                         break;
-                counter++;
-                }
+                } 
                 
                 
             }
             printf("I hate my life.");
         }
+        while(testCounter < 30){
+            testCounter++;
+            int arrayCounter = 0;
+            int toBecomeE = 0;
+            while(arrayCounter < 27){
+                if(lettNum[arrayCounter])
+                    toBecomeE = arrayCounter;
+                    printf("Array Counter: %d toBecomeE: %d\n", arrayCounter, toBecomeE);
+                    arrayCounter++;
+                    }
+                }
 
         
 
