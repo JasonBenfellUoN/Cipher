@@ -232,17 +232,26 @@ int main (){
             }
             printf("I hate my life.");
         }
-        while(testCounter < 30){
             testCounter++;
+            int replacerNum;
             int arrayCounter = 0;
             int toBecomeE = 0;
-            while(arrayCounter < 27){
+            while(arrayCounter < 26){
                 if(lettNum[arrayCounter])
                     toBecomeE = arrayCounter;
                     printf("Array Counter: %d toBecomeE: %d\n", arrayCounter, toBecomeE);
                     arrayCounter++;
-                    }
+                    replacerNum = stdAlphabet[toBecomeE];
+                    
                 }
+            while(!feof(decodeMeRotation)){
+                c = fgetc(decodeMeRotation);
+                if(c = replacerNum){
+                    c = 69;
+                }
+                printf("%c", c);
+            }
+            
 
         
 
