@@ -230,6 +230,7 @@ int main (){
                 
                 
             }
+            rewind(decodeMeRotation);
             printf("I hate my life.");
         }
             testCounter++;
@@ -244,10 +245,14 @@ int main (){
                     replacerNum = stdAlphabet[toBecomeE];
                     
                 }
+            
             while(!feof(decodeMeRotation)){
                 c = fgetc(decodeMeRotation);
-                if(c = replacerNum){
-                    c = 69;
+                if(c > 90){ //Detects lowercase letters (all ASCII lowercase letters are greater than 90)
+            c = c-32; //Takes any character that is a lowercase letter and changes it into a capital letter (the difference between an ASCII lower and upper case is exactly 32)
+        }
+                if(c == replacerNum){
+                    c = stdAlphabet[4];
                 }
                 printf("%c", c);
             }
