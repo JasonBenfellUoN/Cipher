@@ -6,10 +6,12 @@ int main (){
     FILE * encodeMeRotation; //Points to a file under the name "encodeMeRotation"
     FILE * decodeMeRotation;
     FILE * decodeMeKnownSubs;
+    FILE * substitutionKeys;
     printTest = fopen("text.txt", "r"); 
     encodeMeRotation = fopen("encodeMeRotation", "r"); //Opens the file "encodeMeRotation" for "reading" (r)
     decodeMeRotation = fopen("decodeMeRotation", "r");
     decodeMeKnownSubs = fopen("decodeMeKnownSubs", "r");
+    substitutionKeys = fopen("substitutionKeys", "r");
     int choice = 0; //Initialises variables, an integer for user choice.
     int testCounter = 0;
     int n;
@@ -90,33 +92,49 @@ int main (){
         }
     }else if(choice ==3){
         int decoderCounter = 0;
+        int someTempValue = 1;
         int charHunter = 0;
+        int keymaker = 0;
+        char c;
         char toChange;
-        char key[27];
+        char key[26];
+        while(keymaker < 26){
+            key[keymaker] = fgetc(substitutionKeys);
+            keymaker++;
+        }
         printf("Please provide a key as an ordered string of each English letter (without repetition).\nExample: 'QAZWSXEDCRFVTGBYHNUJMIKOLP'\n");
-        scanf("%s", key);
-        printf("%s", key);
-        while(decoderCounter < 27){
-            c = fgetf(decodeMeKnownSubs);
-            if(c != {
-                
-                
+        while(decoderCounter < 26){
+            someTempValue = 1;
+            c = fgetc(decodeMeKnownSubs);
+            while(someTempValue == 1){
+                if(c == key[charHunter] && key[charHunter] != stdAlphabet[charHunter]){
+                c = stdAlphabet[charHunter];
+                charHunter = 0;
+                printf("%c", c);
+                someTempValue = 0;
+                decoderCounter++;
+            }else if(c > 65 || c < 90){
+                charHunter++;
+            }else{
+                charHunter++;
             }
+                
+                
             }
 
-            }
+            
         }
 
 
 
         
     }else if(choice == 9){
-            while(!feof(decodeMeRotation)){
+            while(!feof(decodeMeRotation)){ //This while loop continues until the file has reached its end.
                 c = fgetc(decodeMeRotation);
-                if(c > 90){
+                if(c > 90){ //Changes lowercase letters to capitals.
                     c = c-32;
                 }
-                switch(c){
+                switch(c){ //A switch statement that runs through each letter and increments by one each time a letter is found.
                     case 65: 
                         lettNum[0] += 1;
                         counter++;
