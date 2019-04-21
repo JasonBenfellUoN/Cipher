@@ -5,9 +5,11 @@ int main (){
     FILE * printTest;
     FILE * encodeMeRotation; //Points to a file under the name "encodeMeRotation"
     FILE * decodeMeRotation;
+    FILE * decodeMeKnownSubs;
     printTest = fopen("text.txt", "r"); 
     encodeMeRotation = fopen("encodeMeRotation", "r"); //Opens the file "encodeMeRotation" for "reading" (r)
     decodeMeRotation = fopen("decodeMeRotation", "r");
+    decodeMeKnownSubs = fopen("decodeMeKnownSubs", "r");
     int choice = 0; //Initialises variables, an integer for user choice.
     int testCounter = 0;
     int n;
@@ -86,7 +88,29 @@ int main (){
                 printf(" %c\n", c);     
             }
         }
-    }else if(choice == 3){
+    }else if(choice ==3){
+        int decoderCounter = 0;
+        int charHunter = 0;
+        char toChange;
+        char key[27];
+        printf("Please provide a key as an ordered string of each English letter (without repetition).\nExample: 'QAZWSXEDCRFVTGBYHNUJMIKOLP'\n");
+        scanf("%s", key);
+        printf("%s", key);
+        while(decoderCounter < 27){
+            c = fgetf(decodeMeKnownSubs);
+            if(c != {
+                
+                
+            }
+            }
+
+            }
+        }
+
+
+
+        
+    }else if(choice == 9){
             while(!feof(decodeMeRotation)){
                 c = fgetc(decodeMeRotation);
                 if(c > 90){
@@ -230,9 +254,8 @@ int main (){
                 
                 
             }
-            rewind(decodeMeRotation);
-            printf("I hate my life.");
-        }
+            printf("I hate my life.\n");
+        
             testCounter++;
             int replacerNum;
             int arrayCounter = 0;
@@ -245,7 +268,7 @@ int main (){
                     replacerNum = stdAlphabet[toBecomeE];
                     
                 }
-            
+            rewind(decodeMeRotation);
             while(!feof(decodeMeRotation)){
                 c = fgetc(decodeMeRotation);
                 if(c > 90){ //Detects lowercase letters (all ASCII lowercase letters are greater than 90)
@@ -256,7 +279,9 @@ int main (){
                 }
                 printf("%c", c);
             }
-            
+       //     rewind(decodeMeRotation);
+        }
+
 
         
 
