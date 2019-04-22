@@ -92,35 +92,43 @@ int main (){
         }
     }else if(choice ==3){
         int decoderCounter = 0;
-        int someTempValue = 1;
+        int someTempValue = 0;
         int charHunter = 0;
         int keymaker = 0;
-        char c;
+        char lovelyLetter;
         char toChange;
-        char key[26];
+        int key[26];
         while(keymaker < 26){
             key[keymaker] = fgetc(substitutionKeys);
             keymaker++;
         }
-     //   printf("Please provide a key as an ordered string of each English letter (without repetition).\nExample: 'QAZWSXEDCRFVTGBYHNUJMIKOLP'\n");
-        while(decoderCounter < 26){
-            c = fgetc(decodeMeKnownSubs);
-                if(c == key[charHunter] && key[charHunter] != stdAlphabet[charHunter]){
-                    c = stdAlphabet[charHunter];
-                    charHunter = 0;
-                    printf("%c", c);
-                    someTempValue = 0;
-                    decoderCounter++;
-                }else if(c > 65 || c < 90){
-                    charHunter++;
+        printf("zzzPlease provide a key as an ordered string of each English letter (without repetition).\nExample: 'QAZWSXEDCRFVTGBYHNUJMIKOLP'\n");
+        while(!feof(decodeMeKnownSubs)){
+            lovelyLetter = fgetc(decodeMeKnownSubs);
+            someTempValue++;
+            int i = 0;
 
-                }{
-                    charHunter++;
+            while(i < 26){
+                if(lovelyLetter == key[i])
+                   break;
+                i++;            
+            }         
 
+                        
+                        
+             if (i < 26)
+            {
+      //          printf("%c", stdAlphabet[i]);
+                printf("%c", stdAlphabet[i]);
+            } else {
+                printf("%c", lovelyLetter);
             }
+
+
                 
-                
-            }
+            
+        }
+
 
             
 
