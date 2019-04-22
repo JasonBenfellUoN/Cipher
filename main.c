@@ -102,28 +102,28 @@ int main (){
             key[keymaker] = fgetc(substitutionKeys);
             keymaker++;
         }
-        printf("Please provide a key as an ordered string of each English letter (without repetition).\nExample: 'QAZWSXEDCRFVTGBYHNUJMIKOLP'\n");
+     //   printf("Please provide a key as an ordered string of each English letter (without repetition).\nExample: 'QAZWSXEDCRFVTGBYHNUJMIKOLP'\n");
         while(decoderCounter < 26){
-            someTempValue = 1;
             c = fgetc(decodeMeKnownSubs);
-            while(someTempValue == 1){
                 if(c == key[charHunter] && key[charHunter] != stdAlphabet[charHunter]){
-                c = stdAlphabet[charHunter];
-                charHunter = 0;
-                printf("%c", c);
-                someTempValue = 0;
-                decoderCounter++;
-            }else if(c > 65 || c < 90){
-                charHunter++;
-            }else{
-                charHunter++;
+                    c = stdAlphabet[charHunter];
+                    charHunter = 0;
+                    printf("%c", c);
+                    someTempValue = 0;
+                    decoderCounter++;
+                }else if(c > 65 || c < 90){
+                    charHunter++;
+
+                }{
+                    charHunter++;
+
             }
                 
                 
             }
 
             
-        }
+
 
 
 
@@ -272,7 +272,6 @@ int main (){
                 
                 
             }
-            printf("I hate my life.\n");
         
             testCounter++;
             int replacerNum;
