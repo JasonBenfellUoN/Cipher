@@ -7,11 +7,13 @@ int main (){
     FILE * decodeMeRotation;
     FILE * decodeMeKnownSubs;
     FILE * substitutionKeys;
+    FILE * encodeMeSubs;
     printTest = fopen("text.txt", "r"); 
     encodeMeRotation = fopen("encodeMeRotation", "r"); //Opens the file "encodeMeRotation" for "reading" (r)
     decodeMeRotation = fopen("decodeMeRotation", "r");
     decodeMeKnownSubs = fopen("decodeMeKnownSubs", "r");
     substitutionKeys = fopen("substitutionKeys", "r");
+    encodeMeSubs = fopen("encodeMeSubs", "r");
     int choice = 0; //Initialises variables, an integer for user choice.
     int testCounter = 0;
     int n;
@@ -128,6 +130,33 @@ int main (){
                 
             
         }
+    }else if(choice == 4){
+        int key[26];
+        int keymaker = 0;
+        int charac;
+        int counter;
+        int someTempValue = 0;
+        while(keymaker < 26){
+            key[keymaker] = fgetc(substitutionKeys);
+            keymaker++;
+        }
+        while(!feof(encodeMeSubs)){
+            charac = fgetc(decodeMeKnownSubs);
+            someTempValue++;
+            int i = 0;
+            while(i < 26){
+                if(charac == key[i])
+                    break;
+                i++;
+            }
+            if(i < 26){
+                printf("%c", key[i]);
+            } else {
+                printf("%c", charac);
+            }
+        }
+    
+
 
 
             
