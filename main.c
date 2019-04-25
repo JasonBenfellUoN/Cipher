@@ -134,21 +134,26 @@ int main (){
         int key[26];
         int keymaker = 0;
         int charac;
-        int counter;
+        int counter = 0;
         int someTempValue = 0;
         while(keymaker < 26){
             key[keymaker] = fgetc(substitutionKeys);
             keymaker++;
         }
         while(!feof(encodeMeSubs)){
-            charac = fgetc(decodeMeKnownSubs);
+            charac = fgetc(encodeMeSubs);
+            if(charac > 90){ 
+                charac = charac-32;
+            }
             someTempValue++;
             int i = 0;
             while(i < 26){
-                if(charac == key[i])
+                if(charac == stdAlphabet[i])
                     break;
                 i++;
             }
+            
+            
             if(i < 26){
                 printf("%c", key[i]);
             } else {
