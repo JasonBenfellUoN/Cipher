@@ -14,7 +14,7 @@ int main (){
     decodeMeKnownSubs = fopen("decodeMeKnownSubs", "r");
     substitutionKeys = fopen("substitutionKeys", "r");
     encodeMeSubs = fopen("encodeMeSubs", "r");
-    int choice = 0; //Initialises variables, an integer for user choice.
+    int choice = 0; //Initialises variables.
     int testCounter = 0;
     int n;
     char c;
@@ -30,26 +30,26 @@ int main (){
     scanf("%d", &choice);
     int i = 0;
     if(choice == 1){ //Simple UI choice for selection of function.
-            printf("Please provide an input from -25 to 25\nIncluding 0 will cause no encryption.\n");
-            int key;
-            scanf("%d", &key); //Takes the input of the user and makes it the key for the rotation cipher.
-            if(25 < key || -25 > key){ //Checks if the key is outside of the acceptable range, if not, rejects the input.
-                printf("Invalid input.\n");
-                return;
-            }
-            printf("Your key is: %d\n", key);
+        printf("Please provide an input from -25 to 25\nIncluding 0 will cause no encryption.\n");
+        int key;
+        scanf("%d", &key); //Takes the input of the user and makes it the key for the rotation cipher.
+        if(25 < key || -25 > key){ //Checks if the key is outside of the acceptable range, if not, rejects the input.
+            printf("Invalid input.\n");
+            return;
+        }
+        printf("Your key is: %d\n", key); //Outputs a confirmation - useful to see if the program somehow returned something wrong.
 
             
-            while(!feof(encodeMeRotation)){
-                c = fgetc(encodeMeRotation);
+        while(!feof(encodeMeRotation)){ //While the file end has NOT been reached.
+            c = fgetc(encodeMeRotation); //Get a single character from the file, and store it in the variable 'c'.
                 
-                if(c > 90){ //Detects lowercase letters (all ASCII lowercase letters are greater than 90)
-                    c = c-32; //Takes any character that is a lowercase letter and changes it into a capital letter (the difference between an ASCII lower and upper case is exactly 32)
-                }
-                if ((c < 65) || (c> 90)) {
-                    printf("%d %c %c\n", i, c, c); //Checks characters are within the upper-case ASCII range, and if so, prints them.
-                } else {
-                
+            if(c > 90){ //Detects lowercase letters (all ASCII lowercase letters are greater than 90)
+                c = c-32; //Takes any character that is a lowercase letter and changes it into a capital letter (the difference between an ASCII lower and upper case is exactly 32)
+            }
+
+            if ((c < 65) || (c> 90)) { 
+                printf("%d %c %c\n", i, c, c); //Checks characters are within the upper-case ASCII range, and if so, prints them.
+            }else{
                 i++;
                 printf("%d %c", i, c); 
                 c += key;
@@ -60,77 +60,77 @@ int main (){
                 }
                 printf(" %c\n", c);     
             }
-            }
+        }
+    
     }else if(choice == 2){
-
-            printf("Please provide a key as a number\nIncluding 0 will cause no encryption.\n");
-            int key;
-            scanf("%d", &key);
-            printf("Your key is: %d\n", key);
-            if(25 < key || -25 > key){
-                printf("Invalid input.\n");
+        printf("Please provide a key as a number\nIncluding 0 will cause no encryption.\n");
+        int key;
+        scanf("%d", &key);
+        printf("Your key is: %d\n", key);
+        if(25 < key || -25 > key){
+            printf("Invalid input.\n");
+        }
+            
+        while(!feof(encodeMeRotation)){
+            c = fgetc(encodeMeRotation);
+                
+            if(c > 90){ //Detects lowercase letters (all ASCII lowercase letters are greater than 90)
+                c = c-32; //Takes any character that is a lowercase letter and changes it into a capital letter (the difference between an ASCII lower and upper case is exactly 32)
             }
             
-            while(!feof(encodeMeRotation)){
-                c = fgetc(encodeMeRotation);
-                
-                if(c > 90){ //Detects lowercase letters (all ASCII lowercase letters are greater than 90)
-                    c = c-32; //Takes any character that is a lowercase letter and changes it into a capital letter (the difference between an ASCII lower and upper case is exactly 32)
-                }
-                if ((c < 65) || (c> 90)) {
-                    printf("%d %c %c\n", i, c, c);
-                } else {
-                
+            if ((c < 65) || (c> 90)) {
+                printf("%d %c %c\n", i, c, c);
+            }else{
                 i++;
                 printf("%d %c", i, c);
                 c += key;
                 if(c < 65){
                     c = 155 - c;
-                } else if(c > 90){
+                }else if(c > 90){
                     c = c - 26;
                 }
                 printf(" %c\n", c);     
             }
         }
+    
     }else if(choice ==3){
-        int decoderCounter = 0;
+        int decoderCounter = 0; //Variable initisalisation
         int someTempValue = 0;
         int charHunter = 0;
         int keymaker = 0;
         char lovelyLetter;
         char toChange;
         int key[26];
-        while(keymaker < 26){
-            key[keymaker] = fgetc(substitutionKeys);
+        while(keymaker < 26){ //Runs through the whole array
+            key[keymaker] = fgetc(substitutionKeys); //Places a character in each spot of the array.
             keymaker++;
         }
-        printf("zzzPlease provide a key as an ordered string of each English letter (without repetition).\nExample: 'QAZWSXEDCRFVTGBYHNUJMIKOLP'\n");
-        while(!feof(decodeMeKnownSubs)){
+        while(!feof(decodeMeKnownSubs)){ //While the file is NOT at the end.
             lovelyLetter = fgetc(decodeMeKnownSubs);
             someTempValue++;
             int i = 0;
 
             while(i < 26){
-                if(lovelyLetter == key[i])
+                if(lovelyLetter == key[i]) //If the letter is the same as the key, break out of the while loop.
                    break;
-                i++;            
+                i++; //Increase i. Due to the loop, i should never be above 26.            
             }         
 
                         
                         
-             if (i < 26)
+             if (i < 26) //If the key is within the alphabet. 
             {
       //          printf("%c", stdAlphabet[i]);
-                printf("%c", stdAlphabet[i]);
+                printf("%c", stdAlphabet[i]); //Print the alphabet character that matches the key.
             } else {
-                printf("%c", lovelyLetter);
+                printf("%c", lovelyLetter); //Else, the character is clearly not an alphabetic character, and must be punctuation. In that case, print it normally.
             }
 
 
                 
             
         }
-    }else if(choice == 4){
+    }else if(choice == 4){ //This is, in essence, identifcal to the decryption algorithm, just switched to encrypt via changing the standard alphabet to the key, instead of the key to the standard alphabet.
         int key[26];
         int keymaker = 0;
         int charac;
@@ -148,16 +148,16 @@ int main (){
             someTempValue++;
             int i = 0;
             while(i < 26){
-                if(charac == stdAlphabet[i])
+                if(charac == stdAlphabet[i]) //If the character is the same as the standard alphabet, break.
                     break;
                 i++;
             }
             
             
             if(i < 26){
-                printf("%c", key[i]);
+                printf("%c", key[i]); //Print the encrypted character that is in the same place as the unencrypted character.
             } else {
-                printf("%c", charac);
+                printf("%c", charac); //If the while loop went through 26 cycles, it is not a character, and therefore is punctuation or grammar. Therefore, print it without change.
             }
         }
     
