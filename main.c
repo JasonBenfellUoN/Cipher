@@ -1,17 +1,13 @@
 #include <stdio.h>
-char rotation(char c, int key); 
 
 int main (){
-    FILE * encodeMeRotation; //Points to a file under the name "encodeMeRotation"
+    FILE * encodeMeRotation; //Points to a file under the name "encodeMeRotation". This is necessary for the file to be accessed.
     FILE * decodeMeRotation;
     FILE * decodeMeKnownSubs;
     FILE * substitutionKeys;
     FILE * encodeMeSubs;
     FILE * output;
-    FILE * rotKey;
-    rotKey = fopen("rotKey", "r");
-    printTest = fopen("text.txt", "r"); 
-    encodeMeRotation = fopen("encodeMeRotation", "r"); //Opens the file "encodeMeRotation" for "reading" (r)
+    encodeMeRotation = fopen("encodeMeRotation", "r"); //Opens the file "encodeMeRotation" for "reading" (r).
     decodeMeRotation = fopen("decodeMeRotation", "r");
     decodeMeKnownSubs = fopen("decodeMeKnownSubs", "r");
     substitutionKeys = fopen("substitutionKeys", "r");
@@ -21,21 +17,20 @@ int main (){
     int testCounter = 0;
     int n;
     char c;
-    char cha = 64;
-    int a = cha;
     int lettNum[26] = {0};
     int alphhFreq[10] = {69, 84, 65, 79, 73, 78, 83, 82, 72, 68};
     int stdAlphabet[26] = {65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90}; //Initialises an array that contains the ASCII codes for each letter of the alphabet.
     int counter = 0;
-    printf("Welcome to the Cipher Program.\n"); // These three lines print introductions to the programs, and its specifications
-    printf("Please provide an input: \n1 for rotation encryption, 2 for rotation decryption, 3 for substitution encryption, 4 for substitution decryption/\n"); // and they provide user-friendly instructions
+    printf("Welcome to the Cipher Program.\n"); // These first two printfs print a user prompt with instructions on how to operate the program.
+    printf("Please provide an input: \n1 for rotation encryption, 2 for rotation decryption, 3 for substitution encryption, 4 for substitution decryption.\n");
     scanf("%d", &choice);
+    fprintf(output, "\nNEW OUTPUT\n");
     int i = 0;
     if(choice == 1){ //Simple UI choice for selection of function.
-        printf("Key will be taken from the input file (encodeMeRotation).\nIf it is 0, there will be no encryption.\n");
+        printf("Input will be taken from the input file (encodeMeRotation). \nPlease enter your key is an integer from 0 to 25. \nIf it is 0, there will be no encryption.\n");
         int key;
         scanf("%d", &key); //Takes the input of the user and makes it the key for the rotation cipher.
-        if(25 < key || -25 > key){ //Checks if the key is outside of the acceptable range, if not, rejects the input.
+        if(25 < key || 0 > key){ //Checks if the key is outside of the acceptable range, if not, rejects the input.
             printf("Invalid input.\n");
             return;
         }
@@ -49,43 +44,39 @@ int main (){
                 c = c-32; //Takes any character that is a lowercase letter and changes it into a capital letter (the difference between an ASCII lower and upper case is exactly 32)
             }
 
-            if ((c < 65) || (c> 90)) { 
-                fprintf(output, "%c" , c); //Checks characters are within the upper-case ASCII range, and if so, prints them.
+            if ((c < 65) || (c > 90)) { 
+                fprintf(output, "%c" , c); //If the character is outside of the upper-case ASCII range, still, it is likely punctuation and should be printed without alteration.
             }else{
-                i++; 
-                c += key;
-                if(c < 65){
-                    c = 155 - c;
+                c += key; //Adds the key to the character. Since characters in ASCII are simply numbers that are converted to characters, you can perform addition or subtraction on the characters to manipulate them.
+                if(c < 65){ //If the character is outside of the ASCII upper case.
+                    c = 155 - c; //Adjusts the value through a simple operation if the character underflows after the first operation, so that it returns to an appropriate value.
                 } else if(c > 90){
-                    c = c - 26;
+                    c = c - 26; //Adjusts the value through a simple operation if the character overflows, so that it returns to an appropriate value.
                 }
                 fprintf(output, "%c", c);     
             }
         }
     
-    }else if(choice == 2){
-        printf("Key will be taken from the input file (decodeMeRotation).\nIf it is 0, there will be no decryption.\n");
+    }else if(choice == 2){ //This is essentially the same as the above, with a few minor changes.
+        printf("Input will be taken from the input file (decodeMeRotation).\n Please enter your key is an integer from 0 to 25. \nIf it is 0, there will be no decryption.\n");
         int key;
         scanf("%d", &key);
         printf("Your key is: %d\n", key);
-        if(25 < key || -25 > key){
+        if(25 < key || 0 > key){
             printf("Invalid input.\n");
         }
             
         while(!feof(decodeMeRotation)){
             c = fgetc(decodeMeRotation);
-                
             if(c > 90){ //Detects lowercase letters (all ASCII lowercase letters are greater than 90)
                 c = c-32; //Takes any character that is a lowercase letter and changes it into a capital letter (the difference between an ASCII lower and upper case is exactly 32)
             }
-            
-            if ((c < 65) || (c> 90)) {
+            if ((c < 65) || (c > 90)) {
                 fprintf(output, "%c", c);
             }else{
-                i++;
-                c += key;
+                c = c - key; //Instead of adding, subtract. This is because the cipher is already shifted in one direction (typically addition) so it needs to be subtracted back. 
                 if(c < 65){
-                    c = 155 - c;
+                    c = c + 26; //Because subtraction is what occurs, the operation must account for underflow, by adding 26 if the integer goes below the upper case ASCII values.
                 }else if(c > 90){
                     c = c - 26;
                 }
@@ -94,11 +85,12 @@ int main (){
         }
     
     }else if(choice == 4){
+        printf("Key will be taken from the input file (substitutionKey), and written to output file (output).\n"); //Informational prompt to tell the user where the output and input are supplied.
         int decoderCounter = 0; //Variable initisalisation
         int someTempValue = 0;
         int charHunter = 0;
         int keymaker = 0;
-        char lovelyLetter;
+        char c;
         char toChange;
         int key[26];
         while(keymaker < 26){ //Runs through the whole array
@@ -106,12 +98,12 @@ int main (){
             keymaker++;
         }
         while(!feof(decodeMeKnownSubs)){ //While the file is NOT at the end.
-            lovelyLetter = fgetc(decodeMeKnownSubs);
-            someTempValue++;
+            c = fgetc(decodeMeKnownSubs); //Grab a single character to be operated on from the file.
+            someTempValue++; 
             int i = 0;
 
             while(i < 26){
-                if(lovelyLetter == key[i]) //If the letter is the same as the key, break out of the while loop.
+                if(c == key[i]) //If the letter is the same as the key, break out of the while loop.
                    break;
                 i++; //Increase i. Due to the loop, i should never be above 26.            
             }         
@@ -123,7 +115,7 @@ int main (){
       //          printf("%c", stdAlphabet[i]);
                 fprintf(output, "%c", stdAlphabet[i]); //Print the alphabet character that matches the key.
             } else {
-                fprintf(output, "%c", lovelyLetter); //Else, the character is clearly not an alphabetic character, and must be punctuation. In that case, print it normally.
+                fprintf(output, "%c", c); //Else, the character is clearly not an alphabetic character, and must be punctuation. In that case, print it normally.
             }
 
 
@@ -131,6 +123,7 @@ int main (){
             
         }
     }else if(choice == 3){ //This is, in essence, identifcal to the decryption algorithm, just switched to encrypt via changing the standard alphabet to the key, instead of the key to the standard alphabet.
+        printf("Key will be taken from the input file (substitutionKey), and written to output file (output).\n");
         int key[26];
         int keymaker = 0;
         int charac;
@@ -160,17 +153,12 @@ int main (){
                 fprintf(output, "%c", charac); //If the while loop went through 26 cycles, it is not a character, and therefore is punctuation or grammar. Therefore, print it without change.
             }
         }
-        
-
-    }else if(choice == 5){
-        
-            
-
-
-
+    }else{
+        printf("Invalid input.");
+    }
 
         
-    }else if(choice == 9){
+ /*   }else if(choice == 9){
         while(!feof(decodeMeRotation)){ //This while loop continues until the file has reached its end.
             c = fgetc(decodeMeRotation);
             if(c > 90){ //Changes lowercase letters to capitals.
@@ -338,12 +326,10 @@ int main (){
                 }
                 printf("%c", c);
             }
-       //     rewind(decodeMeRotation);
-        }
+       //     rewind(decodeMeRotation); */
 
-
-        
-
-    printf("\nProgram terminated.\n");
+  
+    fprintf(output, "\nOUTPUT END\n"); //Prints to a file, telling where one set of outputs have ended. Useful to order the output file after multiple executions of the program.
+    printf("\nProgram terminated.\n"); //Prints to the console, a note that the program has been terminated.
     return 0;
 }
